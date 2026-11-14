@@ -9,3 +9,9 @@ Nền tảng khảo thí trực tuyến theo mô hình B2B SaaS giúp các trung
 ### Motivation
 
 Các trung tâm ngoại ngữ, giảng viên tự do và doanh nghiệp vừa và nhỏ thường tốn nhiều thời gian nhập tay từng câu hỏi lên web, đồng thời gặp rủi ro sập hệ thống khi hàng trăm thí sinh nộp bài cùng lúc hoặc gian lận chuyển tab tra cứu tài liệu. Dự án này ra đời nhằm cung cấp một giải pháp Micro-SaaS gọn nhẹ, chi phí hạ tầng thấp nhưng đảm bảo khả năng chịu tải đồng thời và kiểm soát gian lận chặt chẽ.
+
+## Authors
+| MSSV | Họ và Tên | Vai trò |
+| :--- | :--- | :--- |
+| N25DTCN203 | Bùi Ngọc Thái | Backend |
+| N25DTCN194 | Trang Thanh Phong | Frontend |
