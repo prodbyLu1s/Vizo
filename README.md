@@ -1,4 +1,5 @@
 # Vizo — Hệ thống Khảo thí & Đánh giá Năng lực Trực tuyến
+![VIZO](./vizo-banner.gif)
 
 Nền tảng khảo thí trực tuyến theo mô hình B2B SaaS giúp các trung tâm đào tạo, trường học và bộ phận tuyển dụng (HR) tổ chức thi trắc nghiệm quy mô lớn, tự động hóa khâu nhập đề từ file Word, giám sát chống gian lận theo thời gian thực và phân tích phổ điểm tự động.
 
