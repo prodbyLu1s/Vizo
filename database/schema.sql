@@ -26,7 +26,7 @@ CREATE TABLE `users` (
     `user_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `full_name` VARCHAR(100) NOT NULL,
     `email` VARCHAR(150) NOT NULL UNIQUE,
-    `password_hash` VARCHAR(255) NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
     `role` ENUM('admin', 'teacher', 'student') NOT NULL DEFAULT 'student',
     `plan_type` ENUM('free', 'basic', 'pro') NOT NULL DEFAULT 'free',
     `credits` INT UNSIGNED NOT NULL DEFAULT 20,
@@ -36,19 +36,19 @@ CREATE TABLE `users` (
 
 -- ---------------------------------------------------------------------
 -- 2. BẢNG EXAMS (Đề thi & cấu hình phòng thi)
--- Gợi ý: teacher_id (INT UNSIGNED NOT NULL) tham chiếu tới users(user_id) ON DELETE CASCADE
+-- Gợi ý: user_id (INT UNSIGNED NOT NULL) tham chiếu tới users(user_id) ON DELETE CASCADE
 -- ---------------------------------------------------------------------
 CREATE TABLE `exams` (
     `exam_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    `teacher_id` INT UNSIGNED NOT NULL,
+    `user_id` INT UNSIGNED NOT NULL,
     `exam_code` VARCHAR(20) NOT NULL UNIQUE,
     `title` VARCHAR(255) NOT NULL,
     `duration_minutes` SMALLINT UNSIGNED NOT NULL,
     `max_violations` TINYINT UNSIGNED NOT NULL DEFAULT 3,
     `is_published` TINYINT(1) NOT NULL DEFAULT 0,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    -- [TODO 1]: Viết ràng buộc FOREIGN KEY cho teacher_id ở đây
-    FOREIGN KEY (`teacher_id`) REFERENCES `users`(`user_id`) ON DELETE CASCADE,
+    -- [TODO 1]: Viết ràng buộc FOREIGN KEY cho user_id ở đây
+    FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ---------------------------------------------------------------------
@@ -92,15 +92,15 @@ CREATE TABLE `exam_attempts` (
     -- và 2 FOREIGN KEY (exam_id, student_id)
     `attempt_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `exam_id` INT UNSIGNED NOT NULL,
-    `student_id` INT UNSIGNED NOT NULL,
+    `user_id` INT UNSIGNED NOT NULL,
     `start_time` DATETIME NOT NULL,
     `end_time` DATETIME NOT NULL,
     `submitted_at` DATETIME DEFAULT NULL,
-    `violation_count` INT DEFAULT 0,
+    `violation_count` TINYINT UNSIGNED NOT NULL DEFAULT 0,
     `status` ENUM('in_progress', 'submitted', 'locked') NOT NULL,
     `score` DECIMAL(5,2) DEFAULT NULL,
     FOREIGN KEY (`exam_id`) REFERENCES `exams`(`exam_id`) ON DELETE CASCADE,
-    FOREIGN KEY (`student_id`) REFERENCES `students`(`student_id`) ON DELETE CASCADE
+    FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ---------------------------------------------------------------------
