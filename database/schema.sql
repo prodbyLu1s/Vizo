@@ -47,7 +47,6 @@ CREATE TABLE `exams` (
     `max_violations` TINYINT UNSIGNED NOT NULL DEFAULT 3,
     `is_published` TINYINT(1) NOT NULL DEFAULT 0,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    -- [TODO 1]: Viết ràng buộc FOREIGN KEY cho user_id ở đây
     FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -56,11 +55,9 @@ CREATE TABLE `exams` (
 -- Gợi ý: exam_id tham chiếu tới exams(exam_id) ON DELETE CASCADE
 -- ---------------------------------------------------------------------
 CREATE TABLE `questions` (
-    -- [TODO 2]: Tự khai báo các cột: question_id, exam_id, content (TEXT),
     `question_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `content` TEXT NOT NULL,
     `exam_id` INT UNSIGNED NOT NULL,
-    -- points (DECIMAL(5,2) DEFAULT 1.00), created_at và FOREIGN KEY
     `points` DECIMAL(5,2) DEFAULT 1.00,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (`exam_id`) REFERENCES `exams`(`exam_id`) ON DELETE CASCADE
@@ -71,8 +68,6 @@ CREATE TABLE `questions` (
 -- Gợi ý: option_label CHAR(1), is_correct TINYINT(1) DEFAULT 0
 -- ---------------------------------------------------------------------
 CREATE TABLE `question_options` (
-    -- [TODO 3]: Tự khai báo các cột: option_id, question_id, option_label,
-    -- option_content (TEXT), is_correct và FOREIGN KEY (ON DELETE CASCADE)
     `option_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `question_id` INT UNSIGNED NOT NULL,
     `option_label` CHAR(1) NOT NULL,
@@ -87,9 +82,6 @@ CREATE TABLE `question_options` (
 -- submitted_at (DATETIME DEFAULT NULL), status ENUM('in_progress', 'submitted', 'locked')
 -- ---------------------------------------------------------------------
 CREATE TABLE `exam_attempts` (
-    -- [TODO 4]: Tự khai báo các cột: attempt_id, exam_id, student_id,
-    -- start_time, end_time, submitted_at, violation_count, status, score (DECIMAL(5,2) DEFAULT NULL)
-    -- và 2 FOREIGN KEY (exam_id, student_id)
     `attempt_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `exam_id` INT UNSIGNED NOT NULL,
     `user_id` INT UNSIGNED NOT NULL,
@@ -111,9 +103,6 @@ CREATE TABLE `exam_attempts` (
 --    để dùng lệnh INSERT ... ON DUPLICATE KEY UPDATE khi Auto-save!
 -- ---------------------------------------------------------------------
 CREATE TABLE `student_answers` (
-    -- [TODO 5]: Tự khai báo các cột: student_answer_id, attempt_id, question_id,
-    -- option_id (INT UNSIGNED DEFAULT NULL), updated_at (TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP),
-    -- UNIQUE KEY và 3 FOREIGN KEY
     `student_answer_id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `attempt_id` INT UNSIGNED NOT NULL,
     `question_id` INT UNSIGNED NOT NULL,
